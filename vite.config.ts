@@ -9,6 +9,10 @@ const { d1, r2 } = hostingConfig as { d1?: string; r2?: string };
 const localBindingConfig = {
   main: "./worker/index.ts",
   compatibility_flags: ["nodejs_compat"],
+  assets: {
+    binding: "ASSETS",
+    directory: "./public",
+  },
   d1_databases: d1
     ? [{ binding: d1, database_name: "site-creator-d1", database_id: SITE_CREATOR_PLACEHOLDER_DATABASE_ID }]
     : [],

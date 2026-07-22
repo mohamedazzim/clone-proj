@@ -1,9 +1,11 @@
-import Image from "next/image";
+import { SiteImage as Image } from "@/components/site-image";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { ContactSection } from "@/components/contact-section";
-import { IndustryCard } from "@/components/industry-card";
+import { IndustryMarquee } from "@/components/industry-marquee";
+import { LoadReveal, ScrollReveal } from "@/components/motion/reveal";
 import { NewsCard } from "@/components/news-card";
+import { ProjectShowcase } from "@/components/project-showcase";
 import { SectionHeading } from "@/components/section-heading";
 import { StatsPanel } from "@/components/stats-panel";
 import { industries, newsArticles } from "@/lib/site-data";
@@ -32,7 +34,7 @@ const projects = [
 export default function HomePage() {
   return (
     <>
-      <section className="relative isolate flex min-h-[calc(100vh-88px)] items-center overflow-hidden bg-navy text-white">
+      <section className="relative isolate flex min-h-screen items-center overflow-hidden bg-navy text-white">
         <Image
           src="/images/GTQTLpTvdbBuISZv7F45diQ4.jpg"
           alt="Abu Dhabi skyline at dusk"
@@ -44,18 +46,20 @@ export default function HomePage() {
         <div className="absolute inset-0 -z-20 bg-navy/70" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy/20 via-transparent to-navy/55" />
 
-        <div className="mx-auto w-full max-w-[1280px] px-5 py-20 text-center sm:px-8">
-          <div className="animate-fade-up inline-flex items-center gap-2 text-sm sm:text-base">
+        <div className="mx-auto w-full max-w-[1280px] px-5 pb-20 pt-32 text-center sm:px-8">
+          <LoadReveal variant="fadeUp7" delay={0.35} className="inline-flex items-center gap-2 text-sm sm:text-base">
             <span className="rounded-md bg-white px-2.5 py-1.5 font-medium text-black">Your partners</span>
             <span className="text-white/90">Where innovation meets impact</span>
-          </div>
-          <h1 className="animate-fade-up mx-auto mt-6 max-w-[970px] text-balance font-heading text-[52px] leading-[1.02] [animation-delay:90ms] sm:text-7xl lg:text-[82px]">
-            Shaping Sustainable Progress Across Sectors
-          </h1>
-          <p className="animate-fade-up mx-auto mt-7 max-w-[760px] border-t border-white/20 pt-7 text-base leading-7 text-white/85 [animation-delay:180ms] sm:text-lg">
-            Building a legacy of innovation, excellence, and impact across the GCC region.
-          </p>
-          <div className="animate-fade-up mt-8 flex flex-col items-center justify-center gap-3 [animation-delay:270ms] sm:flex-row">
+          </LoadReveal>
+          <LoadReveal variant="fadeBlur10" delay={0.25}>
+            <h1 className="mx-auto mt-6 max-w-[970px] text-balance font-heading text-[52px] leading-[1.02] sm:text-7xl lg:text-[82px]">
+              Shaping Sustainable Progress Across Sectors
+            </h1>
+            <p className="mx-auto mt-7 max-w-[760px] border-t border-white/20 pt-7 text-base leading-7 text-white/85 sm:text-lg">
+              Building a legacy of innovation, excellence, and impact across the GCC region.
+            </p>
+          </LoadReveal>
+          <LoadReveal variant="fadeUp7" delay={0.65} className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link href="/industries" className="flex h-13 w-full items-center justify-between gap-8 rounded-md bg-white px-5 font-medium text-navy sm:w-auto">
               Explore Our Industries
               <ArrowRight className="size-4" />
@@ -64,7 +68,7 @@ export default function HomePage() {
               Explore Our Projects
               <ArrowRight className="size-4" />
             </a>
-          </div>
+          </LoadReveal>
         </div>
       </section>
 
@@ -80,23 +84,27 @@ export default function HomePage() {
             />
           </div>
           <div>
-            <SectionHeading
-              eyebrow="About Us"
-              title="A Legacy of Growth & Innovation"
-              inverse
-              description="AMER Holding is a diversified family business group based in Abu Dhabi, driving transformation across key industries including contracting, real estate, F&B, recruitment, healthcare, and more. With a legacy of over 50 years, we are committed to empowering sustainable growth and delivering long-term value."
-            />
-            <p className="mt-8 text-sm font-medium uppercase tracking-[0.12em] text-gold-light">Shaping Sustainable Progress Across Sectors</p>
-            <Link href="/about" className="mt-7 inline-flex items-center gap-5 text-base font-medium text-white">
-              Chairman&apos;s Message
-              <ArrowRight className="size-4" />
-            </Link>
+            <ScrollReveal variant="fadeUp18">
+              <SectionHeading
+                eyebrow="About Us"
+                title="A Legacy of Growth & Innovation"
+                inverse
+                description="AMER Holding is a diversified family business group based in Abu Dhabi, driving transformation across key industries including contracting, real estate, F&B, recruitment, healthcare, and more. With a legacy of over 50 years, we are committed to empowering sustainable growth and delivering long-term value."
+              />
+              <p className="mt-8 text-sm font-medium uppercase tracking-[0.12em] text-gold-light">Shaping Sustainable Progress Across Sectors</p>
+            </ScrollReveal>
+            <ScrollReveal variant="fadeUp7">
+              <Link href="/about" className="mt-7 inline-flex items-center gap-5 text-base font-medium text-white">
+                Chairman&apos;s Message
+                <ArrowRight className="size-4" />
+              </Link>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
       <section className="bg-[#f5f3ef] py-20 sm:py-24 lg:py-28">
-        <div className="mx-auto grid max-w-[1280px] gap-8 px-5 sm:px-8 lg:grid-cols-2">
+        <ScrollReveal variant="fadeUp18" className="mx-auto grid max-w-[1280px] gap-8 px-5 sm:px-8 lg:grid-cols-2">
           <div className="rounded-lg bg-white p-7 sm:p-9">
             <h2 className="font-heading text-4xl">Our Vision</h2>
             <p className="mt-5 text-base leading-7 text-black/65">
@@ -123,15 +131,17 @@ export default function HomePage() {
               To connect expertise across our businesses, deliver dependable all-in-one solutions, and create enduring value for partners, communities, and generations to come.
             </p>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       <section className="bg-navy py-20 text-white sm:py-24 lg:py-28">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
-          <SectionHeading eyebrow="All In One Service" title="Our Industries" description="Discover the sectors where we create synergies and drive value" inverse />
-          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {industries.map((industry) => <IndustryCard key={industry.slug} industry={industry} />)}
-          </div>
+          <ScrollReveal variant="fadeUp18">
+            <SectionHeading eyebrow="All In One Service" title="Our Industries" description="Discover the sectors where we create synergies and drive value" inverse />
+          </ScrollReveal>
+          <ScrollReveal variant="fadeUp18" className="mt-12">
+            <IndustryMarquee industries={industries} />
+          </ScrollReveal>
         </div>
       </section>
 
@@ -139,39 +149,35 @@ export default function HomePage() {
 
       <section id="projects" className="bg-[#f7f7f7] py-20 sm:py-24 lg:py-28">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
-          <SectionHeading
-            eyebrow="Projects"
-            title="Strategic Projects & Flagship Entities"
-            description="We proudly support and operate leading companies across industries—delivering innovative solutions and iconic projects."
-          />
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            {projects.map((project) => (
-              <article key={project.title} className="group overflow-hidden rounded-lg bg-navy text-white">
-                <div className="relative aspect-[1.35/1] overflow-hidden">
-                  <Image src={project.image} alt="" fill sizes="(max-width: 1024px) 100vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                </div>
-                <div className="p-6">
-                  <h3 className="font-heading text-3xl">{project.title}</h3>
-                  <p className="mt-4 text-[15px] leading-6 text-white/65">{project.description}</p>
-                </div>
-              </article>
-            ))}
-          </div>
+          <ScrollReveal variant="fadeBlur10">
+            <SectionHeading
+              eyebrow="Projects"
+              title="Strategic Projects & Flagship Entities"
+              description="We proudly support and operate leading companies across industries—delivering innovative solutions and iconic projects."
+            />
+          </ScrollReveal>
+          <ScrollReveal variant="fadeUp17" className="mt-12">
+            <ProjectShowcase projects={projects} />
+          </ScrollReveal>
         </div>
       </section>
 
       <section className="bg-navy py-20 text-white sm:py-24 lg:py-28">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
           <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-            <SectionHeading eyebrow="Our News" title="Latest News & Highlights" description="Stay updated with the latest news, achievements, and milestones from Amer Holding." inverse />
-            <Link href="/news" className="inline-flex h-12 shrink-0 items-center gap-5 rounded-md bg-gold px-5 font-medium text-white">
-              View All News
-              <ArrowRight className="size-4" />
-            </Link>
+            <ScrollReveal variant="fadeUp18">
+              <SectionHeading eyebrow="Our News" title="Latest News & Highlights" description="Stay updated with the latest news, achievements, and milestones from Amer Holding." inverse />
+            </ScrollReveal>
+            <ScrollReveal variant="fadeUp7" className="shrink-0">
+              <Link href="/news" className="inline-flex h-12 items-center gap-5 rounded-md bg-gold px-5 font-medium text-white">
+                View All News
+                <ArrowRight className="size-4" />
+              </Link>
+            </ScrollReveal>
           </div>
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
+          <ScrollReveal variant="fadeUp18" className="mt-12 grid gap-6 lg:grid-cols-3">
             {newsArticles.slice(0, 3).map((article) => <NewsCard key={article.slug} article={article} />)}
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 

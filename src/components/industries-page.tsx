@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { IndustryCard } from "@/components/industry-card";
+import { ScrollReveal } from "@/components/motion/reveal";
 import { PageHero } from "@/components/page-hero";
 import { SectionHeading } from "@/components/section-heading";
+import { chunkItems } from "@/lib/collections";
 import { industries } from "@/lib/site-data";
 
 const steps = [
@@ -22,13 +24,17 @@ export function IndustriesPage() {
       />
 
       <section className="bg-navy py-20 sm:py-24 lg:py-28">
-        <div className="mx-auto grid max-w-[1280px] gap-6 px-5 sm:px-8 md:grid-cols-2 xl:grid-cols-3">
-          {industries.map((industry) => <IndustryCard key={industry.slug} industry={industry} />)}
+        <div className="mx-auto flex max-w-[1280px] flex-col gap-6 px-5 sm:px-8">
+          {chunkItems(industries, 3).map((row) => (
+            <ScrollReveal key={row[0].slug} variant="fadeUp18" className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {row.map((industry) => <IndustryCard key={industry.slug} industry={industry} />)}
+            </ScrollReveal>
+          ))}
         </div>
       </section>
 
       <section className="bg-white py-20 sm:py-24 lg:py-28">
-        <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+        <ScrollReveal variant="fadeUp18" className="mx-auto max-w-[1280px] px-5 sm:px-8">
           <SectionHeading
             eyebrow="How We Work"
             title="A Unified Approach to Growth"
@@ -43,17 +49,17 @@ export function IndustriesPage() {
               </article>
             ))}
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       <section className="bg-navy py-20 text-white sm:py-24">
-        <div className="mx-auto flex max-w-[1280px] flex-col justify-between gap-8 px-5 sm:px-8 md:flex-row md:items-center">
+        <ScrollReveal variant="fadeUp18" className="mx-auto flex max-w-[1280px] flex-col justify-between gap-8 px-5 sm:px-8 md:flex-row md:items-center">
           <h2 className="max-w-3xl font-heading text-4xl leading-[1.08] sm:text-5xl lg:text-[52px]">Let’s Build What’s Next, Together!</h2>
           <Link href="/contact" className="flex h-13 w-fit items-center gap-8 rounded-md bg-gold px-6 font-medium text-white">
             Contact Us
             <ArrowRight className="size-4" />
           </Link>
-        </div>
+        </ScrollReveal>
       </section>
     </>
   );

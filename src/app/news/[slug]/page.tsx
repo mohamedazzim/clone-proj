@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { SiteImage as Image } from "@/components/site-image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
+import { ScrollReveal } from "@/components/motion/reveal";
 import { NewsCard } from "@/components/news-card";
 import { articleContent } from "@/lib/article-content";
 import { newsArticles } from "@/lib/site-data";
@@ -31,7 +32,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   return (
     <>
       <article>
-        <header className="bg-[#f7f7f7] px-5 pb-6 pt-14 text-center text-black sm:px-8 sm:pt-16">
+        <header className="bg-[#f7f7f7] px-5 pb-6 pt-[144px] text-center text-black sm:px-8 sm:pt-[152px]">
           <nav aria-label="Breadcrumb" className="flex justify-center gap-2 text-[15px]">
             <Link href="/" className="text-black/70 hover:text-black">Home</Link>
             <span aria-hidden="true" className="text-black/35">›</span>
@@ -82,12 +83,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         <div className="mx-auto max-w-[1280px] border-t border-white/15 px-5 pt-20 sm:px-8 sm:pt-24">
           <h2 className="font-heading text-4xl sm:text-5xl lg:text-[52px]">Related Reads for You</h2>
           <p className="mt-4 text-base text-white/60">Discover more articles that align with your interests and keep exploring.</p>
-          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          <ScrollReveal variant="fadeUp15" className="mt-10 grid gap-6 lg:grid-cols-3">
             {newsArticles
               .filter((related) => related.slug !== article.slug)
               .slice(0, 3)
               .map((related) => <NewsCard key={related.slug} article={related} />)}
-          </div>
+          </ScrollReveal>
         </div>
       </section>
     </>

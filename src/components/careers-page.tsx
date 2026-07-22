@@ -1,5 +1,6 @@
-import Image from "next/image";
+import { SiteImage as Image } from "@/components/site-image";
 import { ContactSection } from "@/components/contact-section";
+import { LoadReveal, ScrollReveal } from "@/components/motion/reveal";
 import { PageHero } from "@/components/page-hero";
 import { SectionHeading } from "@/components/section-heading";
 import { StatsPanel } from "@/components/stats-panel";
@@ -19,14 +20,14 @@ export function CareersPage() {
         title="Shape the Future With Us"
         description="At AMER Holding, we believe that people are the driving force behind progress. By joining our team, you become part of a purpose-driven organization committed to innovation, sustainable growth, and positive impact across industries."
       >
-        <div className="mt-12 grid gap-5 sm:grid-cols-[.8fr_1.2fr]">
+        <LoadReveal variant="fadeUp28" delay={0.25} className="mt-12 grid gap-5 sm:grid-cols-[.8fr_1.2fr]">
           <div className="relative min-h-[290px] overflow-hidden rounded-lg sm:min-h-[410px]">
             <Image src="/images/GqseMwUDdRUfIgxyxiVW1IWxU.jpg" alt="Emirati professionals working together" fill sizes="(max-width: 640px) 100vw, 40vw" className="object-cover" />
           </div>
           <div className="relative min-h-[290px] overflow-hidden rounded-lg sm:min-h-[410px]">
             <Image src="/images/HSqqasAMgbMM0aJEU4ASxcVYdM.jpg" alt="AMER Holding team members" fill sizes="(max-width: 640px) 100vw, 60vw" className="object-cover" />
           </div>
-        </div>
+        </LoadReveal>
       </PageHero>
 
       <section className="bg-[#f5f3ef] py-20 sm:py-24 lg:py-28">
@@ -36,7 +37,7 @@ export function CareersPage() {
             title="Why Work With Us?"
             description="We are more than just a workplace—we are a community united by shared values and ambition. At AMER Holding, you will find the opportunity to learn, grow, and be part of projects that shape the future."
           />
-          <div className="mt-12 grid gap-px overflow-hidden rounded-lg bg-black/10 sm:grid-cols-2 lg:grid-cols-4">
+          <ScrollReveal variant="fadeUp18" className="mt-12 grid gap-px overflow-hidden rounded-lg bg-black/10 sm:grid-cols-2 lg:grid-cols-4">
             {benefits.map(([title, description], index) => (
               <article key={title} className="bg-white p-7">
                 <span className="font-heading text-5xl text-gold">0{index + 1}</span>
@@ -44,7 +45,7 @@ export function CareersPage() {
                 <p className="mt-3 text-sm leading-6 text-black/60">{description}</p>
               </article>
             ))}
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 

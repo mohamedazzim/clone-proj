@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SiteImage as Image } from "@/components/site-image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { IndustrySummary } from "@/lib/site-data";
@@ -12,7 +12,7 @@ export function IndustryCard({ industry, light = true }: IndustryCardProps) {
   return (
     <Link
       href={industry.available ? `/${industry.slug}` : "/industries"}
-      className={`group flex h-full flex-col overflow-hidden rounded-lg transition-transform duration-300 hover:-translate-y-1 ${
+      className={`flex h-full flex-col overflow-hidden rounded-lg ${
         light ? "bg-white text-black shadow-[0_12px_35px_rgba(1,33,56,.08)]" : "bg-white/8 text-white"
       }`}
     >
@@ -22,7 +22,7 @@ export function IndustryCard({ industry, light = true }: IndustryCardProps) {
           alt=""
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          className="object-cover"
         />
       </div>
       <div className="flex flex-1 flex-col p-6">
@@ -33,7 +33,7 @@ export function IndustryCard({ industry, light = true }: IndustryCardProps) {
         <p className={`mt-4 text-[15px] leading-6 ${light ? "text-black/60" : "text-white/60"}`}>{industry.summary}</p>
         <span className={`mt-6 inline-flex items-center gap-3 text-sm font-medium ${light ? "text-gold" : "text-gold-light"}`}>
           Learn more
-          <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+          <ArrowRight className="size-4" />
         </span>
       </div>
     </Link>

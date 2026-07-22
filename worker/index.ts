@@ -1,15 +1,11 @@
-import {
-  DEFAULT_DEVICE_SIZES,
-  DEFAULT_IMAGE_SIZES,
-  handleImageOptimization,
-} from "vinext/server/image-optimization";
+import { handleImageOptimization } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
 
 interface Env {
-  ASSETS: {
+  ASSETS?: {
     fetch(request: Request): Promise<Response>;
   };
-  IMAGES: {
+  IMAGES?: {
     input(stream: ReadableStream): {
       transform(options: Record<string, unknown>): {
         output(options: { format: string; quality: number }): Promise<{ response(): Response }>;
@@ -24,21 +20,34 @@ interface ExecutionContext {
 }
 
 const worker = {
-  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+  async fetch(request: Request, env: Env | undefined, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
+    if (
+      !env?.ASSETS &&
+      (url.pathname.startsWith("/images/") || url.pathname.startsWith("/fonts/") || url.pathname === "/og.png")
+    ) {
+      return new Response(null, {
+        headers: { "x-vinext-static-file": encodeURIComponent(url.pathname) },
+      });
+    }
+
     if (url.pathname === "/_vinext/image") {
-      const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];
+      if (!env?.ASSETS) return new Response("Image assets are unavailable", { status: 503 });
+
+      const transformImage = env.IMAGES
+        ? async (body: ReadableStream, { width, format, quality }: { width: number; format: string; quality: number }) => {
+            const result = await env.IMAGES!.input(body).transform(width > 0 ? { width } : {}).output({ format, quality });
+            return result.response();
+          }
+        : undefined;
+
       return handleImageOptimization(
         request,
         {
-          fetchAsset: (path) => env.ASSETS.fetch(new Request(new URL(path, request.url))),
-          transformImage: async (body, { width, format, quality }) => {
-            const result = await env.IMAGES.input(body).transform(width > 0 ? { width } : {}).output({ format, quality });
-            return result.response();
-          },
+          fetchAsset: (path) => env.ASSETS!.fetch(new Request(new URL(path, request.url))),
+          transformImage,
         },
-        allowedWidths,
       );
     }
 

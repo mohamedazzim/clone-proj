@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { ScrollReveal } from "@/components/motion/reveal";
 import { NewsCard } from "@/components/news-card";
 import { PageHero } from "@/components/page-hero";
+import { chunkItems } from "@/lib/collections";
 import { newsArticles } from "@/lib/site-data";
 
 export const metadata: Metadata = {
@@ -18,8 +20,12 @@ export default function NewsPage() {
         description="Explore the latest news, industry insights, and thought leadership from AMER Holding. Stay informed about our projects, partnerships, and the trends shaping the future of business across the GCC and beyond."
       />
       <section className="bg-navy pb-20 sm:pb-24 lg:pb-28">
-        <div className="mx-auto grid max-w-[1280px] gap-x-7 gap-y-10 px-5 sm:px-8 md:grid-cols-2 lg:grid-cols-3">
-          {newsArticles.map((article) => <NewsCard key={article.slug} article={article} />)}
+        <div className="mx-auto flex max-w-[1280px] flex-col gap-10 px-5 sm:px-8">
+          {chunkItems(newsArticles, 3).map((row) => (
+            <ScrollReveal key={row[0].slug} variant="fadeUp15" className="grid gap-x-7 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+              {row.map((article) => <NewsCard key={article.slug} article={article} />)}
+            </ScrollReveal>
+          ))}
         </div>
       </section>
     </>

@@ -1,8 +1,9 @@
 "use client";
 
-import Image from "next/image";
+import { SiteImage as Image } from "@/components/site-image";
 import { Mail, MapPin, Phone, Send, Upload } from "lucide-react";
 import { type FormEvent, useState } from "react";
+import { ScrollReveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { companyInfo } from "@/lib/company-info";
 
@@ -15,6 +16,7 @@ type ContactSectionProps = {
   email?: string;
   showAddress?: boolean;
   backgroundImage?: string;
+  animateHeading?: boolean;
 };
 
 const inputClass =
@@ -29,6 +31,7 @@ export function ContactSection({
   email = companyInfo.email,
   showAddress = true,
   backgroundImage = "/images/ujML8hiNfVccRPOKWBvhcJtcqeE.jpg",
+  animateHeading = true,
 }: ContactSectionProps) {
   const [submitted, setSubmitted] = useState(false);
 
@@ -41,7 +44,13 @@ export function ContactSection({
   return (
     <section className="bg-[#f5f3ef] py-20 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
-        <SectionHeading eyebrow={eyebrow} title={title} description={description} />
+        {animateHeading ? (
+          <ScrollReveal variant="fadeUp18">
+            <SectionHeading eyebrow={eyebrow} title={title} description={description} />
+          </ScrollReveal>
+        ) : (
+          <SectionHeading eyebrow={eyebrow} title={title} description={description} />
+        )}
 
         <div className="mt-12 grid overflow-hidden rounded-xl bg-navy shadow-[0_24px_70px_rgba(1,33,56,.12)] lg:grid-cols-[.85fr_1.15fr]">
           <div className="relative isolate min-h-[470px] overflow-hidden px-6 py-9 text-white sm:px-10 lg:min-h-full lg:px-12 lg:py-12">

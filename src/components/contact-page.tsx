@@ -5,7 +5,12 @@ export function ContactPage() {
   return (
     <>
       <PageHero current="Contact" title="Get in Touch" description="We welcome your inquiries and look forward to connecting." align="left" />
-      <ContactSection eyebrow="" title="Reach Out to Us" description="Fill out the form, and let’s talk about how we can support your business with tailored solutions." />
+      <ContactSection
+        eyebrow=""
+        title="Reach Out to Us"
+        description="Fill out the form, and let’s talk about how we can support your business with tailored solutions."
+        animateHeading={false}
+      />
     </>
   );
 }
